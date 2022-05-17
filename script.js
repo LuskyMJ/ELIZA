@@ -11,6 +11,9 @@ let replacementKeywords = {
     "me": " you"
 }
 
+// Array for storing last options
+let previousAnwers = [null, null, null, null];
+
 let userSubmitClick = () => {
 
     // Variables
@@ -23,31 +26,118 @@ let userSubmitClick = () => {
     // Restting the text in the userInput field
     userInput.value = "";
 
-    console.log(Math.round(Math.random(0, 1)));
+    // Select which kind of answer to use. 0 = no, 1 = yes
+    let selectedOption = Math.round(Math.random(0, 1));
 
     // Keywords for different kind of questions
     if (input.startsWith("can you")) 
     {
-        firstPart = "Yes, I can";
+        // Array with yes/no answer
+        let answerStrings = ["No, I can't", "Yes, I can"];
+
+        // If the current answer is "no" and the last answer wasn't "no"
+        if ( (selectedOption == 0) && (previousAnwers[0] != 0) )
+        {
+            firstPart = answerStrings[0];
+            previousAnwers[0] = 0;
+        }
+
+        // If the current answer is "yes" and the last answer wasn't "yes"
+        else if ( (selectedOption == 1) && (previousAnwers[0] != 1))
+        {
+            firstPart = answerStrings[1];
+            previousAnwers[0] = 1;
+        }
+
+        // Answer same as last time. Choose other option
+        else
+        {
+            firstPart = answerStrings[+!selectedOption];
+            previousAnwers[0] = +!selectedOption;
+        }
+
         secondPart = input.slice(8, input.length).split(" ");
+
+        // Set other questions last answer to null
+        previousAnwers[1], previousAnwers[2], previousAnwers[3] = null;
     } 
     
     else if (input.startsWith("can i"))
     {
-        firstPart = "Yes, You can";
+        let answerStrings = ["No, you can't", "Yes, you can"];
+
+        if ( (selectedOption == 0) && (previousAnwers[1] != 0) )
+        {
+            firstPart = answerStrings[0];
+            previousAnwers[1] = 0;
+        }
+
+        else if ( (selectedOption == 1) && (previousAnwers[1] != 1) )
+        {
+            firstPart = answerStrings[1];
+            previousAnwers[1] = 1;
+        }
+
+        else
+        {
+            firstPart = answerStrings[+!selectedOption];
+            previousAnwers[1] = +!selectedOption;
+        }
+
         secondPart = input.slice(5, input.length).split(" ");
+        previousAnwers[0], previousAnwers[2], previousAnwers[3] = null;
     } 
     
     else if (input.startsWith("are you")) 
     {
-        firstPart = "Yes, I'm";
+        let answerStrings = ["Yes, I'm", "No, I'm not"];
+
+        if ( (selectedOption == 0) && (previousAnwers[2] != 0))
+        {
+            firstPart = answerStrings[0];
+            previousAnwers[2] = 0;
+        }
+
+        else if ( (selectedOption == 1) && (previousAnwers[2] != 1) )
+        {
+            firstPart = answerStrings[1];
+            previousAnwers[2] = 1;
+        }
+
+        else
+        {
+            firstPart = answerStrings[+!selectedOption];
+            previousAnwers[2] = +!selectedOption;
+        }
+
         secondPart = input.slice(7, input.length).split(" ");
+        previousAnwers[0], previousAnwers[1], previousAnwers[3] = null;
     }
 
     else if (input.startsWith("am i"))
     {
-        firstPart = "Yes, you're";
+        let answerStrings = ["No, you're not", "Yes, you're"];
+
+        if ( (selectedOption == 0) && (previousAnwers[3] != 0) )
+        {
+            firstPart = answerStrings[0];
+            previousAnwers[3] = 0;
+        }
+
+        else if ( (selectedOptions == 1) && (previousAnwers[3] != 1) )
+        {
+            firstPart = answerString[1];
+            previousAnwers[3] = 1;
+        }
+
+        else
+        {
+            firstPart = answerString[+!selectedOption];
+            previousAnwers[3] = +!selectedOption;
+        }
+        
         secondPart = input.slice(5, input.length).split(" ");
+        previousAnwers[0], previousAnwers[1], previousAnwers[2] = null;
     }
 
     // Unkown sentence structure. Tell the user
@@ -63,7 +153,6 @@ let userSubmitClick = () => {
         {
             if (secondPart[i] == key)
             {
-                console.log("Thing");
                 secondPart[i] = value;
                 break;
             }
