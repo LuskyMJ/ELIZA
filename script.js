@@ -3,55 +3,82 @@ let userSubmit = document.getElementById("userSubmit");
 let input = "";
 let response = "";
 
-// Keywords to determine different kind of sentences
-let keyWords = [
-    "can you",
-    "can i ",
-    "are you",
-    "am i"
-]
-
-// Keywords to get 
+// Keywords to replace
 let replacementKeywords = {
-    " you ": " me",
-    " yourself ": " myself",
-    " i ": " you",
-    " me ": " you"
+    "you": " me",
+    "yourself": " myself",
+    "i": " you",
+    "me": " you"
 }
 
 let userSubmitClick = () => {
-    input = userInput.value.toLowerCase() + " ";
+
+    // Variables
+    let firstPart = "";
+    let secondPart = "";
+
+    // Saving the input from the userInput
+    input = userInput.value.toLowerCase().replace("?", "");
+
+    // Restting the text in the userInput field
     userInput.value = "";
 
+    console.log(Math.round(Math.random(0, 1)));
+
     // Keywords for different kind of questions
-    if (input.includes(keyWords[0])) 
+    if (input.startsWith("can you")) 
     {
-        response = "I can " + input.slice(8, input.length);
+        firstPart = "Yes, I can";
+        secondPart = input.slice(8, input.length).split(" ");
     } 
     
-    else if (response.includes(keyWords[1]))
+    else if (input.startsWith("can i"))
     {
-        response = "You can " + input.slice(8, input.length);
+        firstPart = "Yes, You can";
+        secondPart = input.slice(5, input.length).split(" ");
     } 
     
-    else if (response.includes(keyWords[2])) 
+    else if (input.startsWith("are you")) 
     {
-        response = "";
+        firstPart = "Yes, I'm";
+        secondPart = input.slice(7, input.length).split(" ");
     }
 
+    else if (input.startsWith("am i"))
+    {
+        firstPart = "Yes, you're";
+        secondPart = input.slice(5, input.length).split(" ");
+    }
+
+    // Unkown sentence structure. Tell the user
     else
+    {
+        response = null;
+    } 
+
+    // Replacing keywords in second string
+    for (let i = 0; i < secondPart.length; i++)
+    {
+        for (const [key, value] of Object.entries(replacementKeywords))
+        {
+            if (secondPart[i] == key)
+            {
+                console.log("Thing");
+                secondPart[i] = value;
+                break;
+            }
+        }
+    }
+
+    // Creating the final response
+    if (response == null)
     {
         response = "Sorry, I don't understand what you're trying to say.";
     }
 
-    // Replacing keywords
-    for (const [key, value] of Object.entries(replacementKeywords))
+    else 
     {
-        if (response.replace(key, value) != response)
-        {
-            response = response.replace(key, value);
-            break;
-        }
+        response = [firstPart, secondPart.join(" ")].join(" ");
     }
 
     document.querySelector("p").innerHTML = response;
