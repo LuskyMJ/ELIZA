@@ -14,7 +14,7 @@ let replacementKeywords = {
 // Array for storing last options
 let previousAnwers = [null, null, null, null];
 
-let userSubmitClick = () => {
+function userSubmitClick() {
 
     // Variables
     let firstPart = "";
