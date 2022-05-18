@@ -30,28 +30,24 @@ function userSubmitClick() {
     let selectedOption = Math.round(Math.random(0, 1));
 
     // Keywords for different kind of questions
-    if (input.startsWith("can you")) 
-    {
+    if (input.startsWith("can you")) {
         // Array with yes/no answer
         let answerStrings = ["No, I can't", "Yes, I can"];
 
         // If the current answer is "no" and the last answer wasn't "no"
-        if ( (selectedOption == 0) && (previousAnwers[0] != 0) )
-        {
+        if ( (selectedOption == 0) && (previousAnwers[0] != 0) ) {
             firstPart = answerStrings[0];
             previousAnwers[0] = 0;
         }
 
         // If the current answer is "yes" and the last answer wasn't "yes"
-        else if ( (selectedOption == 1) && (previousAnwers[0] != 1))
-        {
+        else if ( (selectedOption == 1) && (previousAnwers[0] != 1)) {
             firstPart = answerStrings[1];
             previousAnwers[0] = 1;
         }
 
         // Answer same as last time. Choose other option
-        else
-        {
+        else {
             firstPart = answerStrings[+!selectedOption];
             previousAnwers[0] = +!selectedOption;
         }
@@ -62,24 +58,20 @@ function userSubmitClick() {
         previousAnwers[1], previousAnwers[2], previousAnwers[3] = null;
     } 
     
-    else if (input.startsWith("can i"))
-    {
+    else if (input.startsWith("can i")) {
         let answerStrings = ["No, you can't", "Yes, you can"];
 
-        if ( (selectedOption == 0) && (previousAnwers[1] != 0) )
-        {
+        if ( (selectedOption == 0) && (previousAnwers[1] != 0) ) {
             firstPart = answerStrings[0];
             previousAnwers[1] = 0;
         }
 
-        else if ( (selectedOption == 1) && (previousAnwers[1] != 1) )
-        {
+        else if ( (selectedOption == 1) && (previousAnwers[1] != 1) ) {
             firstPart = answerStrings[1];
             previousAnwers[1] = 1;
         }
 
-        else
-        {
+        else {
             firstPart = answerStrings[+!selectedOption];
             previousAnwers[1] = +!selectedOption;
         }
@@ -88,24 +80,20 @@ function userSubmitClick() {
         previousAnwers[0], previousAnwers[2], previousAnwers[3] = null;
     } 
     
-    else if (input.startsWith("are you")) 
-    {
+    else if (input.startsWith("are you")) {
         let answerStrings = ["Yes, I'm", "No, I'm not"];
 
-        if ( (selectedOption == 0) && (previousAnwers[2] != 0))
-        {
+        if ( (selectedOption == 0) && (previousAnwers[2] != 0)) {
             firstPart = answerStrings[0];
             previousAnwers[2] = 0;
         }
 
-        else if ( (selectedOption == 1) && (previousAnwers[2] != 1) )
-        {
+        else if ( (selectedOption == 1) && (previousAnwers[2] != 1) ) {
             firstPart = answerStrings[1];
             previousAnwers[2] = 1;
         }
 
-        else
-        {
+        else {
             firstPart = answerStrings[+!selectedOption];
             previousAnwers[2] = +!selectedOption;
         }
@@ -114,24 +102,20 @@ function userSubmitClick() {
         previousAnwers[0], previousAnwers[1], previousAnwers[3] = null;
     }
 
-    else if (input.startsWith("am i"))
-    {
+    else if (input.startsWith("am i")) {
         let answerStrings = ["No, you're not", "Yes, you're"];
 
-        if ( (selectedOption == 0) && (previousAnwers[3] != 0) )
-        {
+        if ( (selectedOption == 0) && (previousAnwers[3] != 0) ) {
             firstPart = answerStrings[0];
             previousAnwers[3] = 0;
         }
 
-        else if ( (selectedOptions == 1) && (previousAnwers[3] != 1) )
-        {
+        else if ( (selectedOptions == 1) && (previousAnwers[3] != 1) ) {
             firstPart = answerString[1];
             previousAnwers[3] = 1;
         }
 
-        else
-        {
+        else {
             firstPart = answerString[+!selectedOption];
             previousAnwers[3] = +!selectedOption;
         }
@@ -141,18 +125,14 @@ function userSubmitClick() {
     }
 
     // Unkown sentence structure. Tell the user
-    else
-    {
+    else {
         response = null;
     } 
 
     // Replacing keywords in second string
-    for (let i = 0; i < secondPart.length; i++)
-    {
-        for (const [key, value] of Object.entries(replacementKeywords))
-        {
-            if (secondPart[i] == key)
-            {
+    for (let i = 0; i < secondPart.length; i++) {
+        for (const [key, value] of Object.entries(replacementKeywords)) {
+            if (secondPart[i] == key) {
                 secondPart[i] = value;
                 break;
             }
@@ -160,13 +140,11 @@ function userSubmitClick() {
     }
 
     // Creating the final response
-    if (response == null)
-    {
+    if (response == null) {
         response = "Sorry, I don't understand what you're trying to say.";
     }
 
-    else 
-    {
+    else {
         response = [firstPart, secondPart.join(" ")].join(" ");
     }
 
