@@ -169,8 +169,24 @@ let userSubmitClick = () => {
     {
         response = [firstPart, secondPart.join(" ")].join(" ");
     }
+    // Create chat bubble:
+    const sender = document.createElement("div");
+    sender.className = "alert alert-success col-md-4 offset-md-8";
+    sender.id = "sentMessage";
+    sender.innerText = input;
 
-    document.querySelector("p").innerHTML = response;
+    // Append to div1:
+    document.getElementsByTagName('div1')[0].appendChild(sender);
+
+    // Create chat bubble:
+    const bot = document.createElement("div");
+    bot.className = "alert alert-primary col-md-4";
+    bot.style = "margin-bottom: 10%";
+    bot.innerText = response;
+
+    // Append to div1:
+    document.getElementsByTagName('div1')[0].appendChild(bot);
+
 }
 
 userSubmit.addEventListener("click", userSubmitClick);
