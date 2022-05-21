@@ -27,9 +27,6 @@ let userSubmitClick = () => {
     // Saving the input from the userInput
     input = userInput.value.toLowerCase().replace("?", "");
 
-    // Resetting the text in the userInput field
-    userInput.value = "";
-
     // Select which kind of answer to use. 0 = no, 1 = yes
     let selectedOption = Math.round(Math.random(0, 1));
 
@@ -173,11 +170,12 @@ let userSubmitClick = () => {
     {
         response = [firstPart, secondPart.join(" ")].join(" ");
     }
+    
     // Create chat bubble:
     const sender = document.createElement("div");
     sender.className = "alert alert-success col-md-4 offset-md-8";
     sender.id = "sentMessage";
-    sender.innerText = input;
+    sender.innerText = userInput.value;
 
     // Append to div1:
     document.getElementsByTagName('div1')[0].appendChild(sender);
@@ -191,6 +189,8 @@ let userSubmitClick = () => {
     // Append to div1:
     document.getElementsByTagName('div1')[0].appendChild(bot);
 
+    // Resetting the text in the userInput field
+    userInput.value = "";
 }
 
 userSubmit.addEventListener("click", userSubmitClick);
