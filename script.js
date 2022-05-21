@@ -6,9 +6,13 @@ let response = "";
 // Keywords to replace
 let replacementKeywords = {
     "you": " me",
+    "me": " you",
     "yourself": " myself",
+    "myself": "yourself",
     "i": " you",
-    "me": " you"
+    "you": "i",
+    "my": "yours",
+    "yours": "my"
 }
 
 // Array for storing last options
@@ -23,7 +27,7 @@ let userSubmitClick = () => {
     // Saving the input from the userInput
     input = userInput.value.toLowerCase().replace("?", "");
 
-    // Restting the text in the userInput field
+    // Resetting the text in the userInput field
     userInput.value = "";
 
     // Select which kind of answer to use. 0 = no, 1 = yes
